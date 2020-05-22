@@ -1,0 +1,20 @@
+{
+  "name": "proyecto_final",
+  "version": "1.0.0",
+  "description": "Proyecto final materia dllo web",
+  "author": "Carlangasv",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {}
+}
