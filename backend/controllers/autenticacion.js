@@ -10,7 +10,7 @@ let validar_datos = (usuario) => {
       ok: false,
       mensaje: "La información es obligatoria",
     };
-  } else if (!usuario.id) {
+  } else if (!usuario.documento) {
     throw {
       ok: false,
       mensaje: "La cedula es obligatoria",
@@ -27,7 +27,7 @@ let consultar_usuario = async (usuario) => {
   let _service = new servicePg();
   let sql = `SELECT tipo_documento, documento, nombre, apellidos, celular, correo, rol, clave
     FROM public.usuarios where documento = $1 and clave = md5($2)`;
-  let values = [usuario.id, usuario.clave];
+  let values = [usuario.documento, usuario.clave];
   let respuesta = await _service.runsql(sql, values);
   return respuesta;
 };

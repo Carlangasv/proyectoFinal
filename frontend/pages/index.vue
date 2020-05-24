@@ -4,7 +4,7 @@
     <b-form-group @submit.stop.prevent label="Documento" label-for="id">
       <b-form-input
         class="form-control"
-        v-model="usuario.id"
+        v-model="usuario.documento"
         type="number"
         placeholder="Ingrese su documento de identidad"
         id="id"
@@ -27,7 +27,7 @@
       >
     </b-form-group>
 
-    <b-button  type="submit" block variant="danger"
+    <b-button  type="submit" block variant="danger" @click="login()"
       >Ingresar</b-button
     >
   </b-form>
