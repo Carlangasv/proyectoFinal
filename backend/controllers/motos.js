@@ -88,5 +88,6 @@ module.exports ={
     ver_moto,
     eliminar_moto,
     crear_moto,
-    actualizar_moto
+    actualizar_moto,
+    validar_moto
 }

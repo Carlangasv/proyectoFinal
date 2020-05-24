@@ -10,9 +10,11 @@ app.use(cors());
 const vs = "/api/v1/";
 
 const route_login = require("./routes/authentication");
+const route_users = require("./routes/usuarios"); 
 
 
 app.use(vs, route_login);
+app.use(vs,route_users);
 
 app.use("/", (req, res) => {
   res.status(404).send({
