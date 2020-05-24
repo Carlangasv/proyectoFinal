@@ -5,27 +5,22 @@ const _controller = require("../controllers/autenticacion");
 router.use((req, res, next) => {
   try {
     let url = req.url;
-    if (url == "/login") {
+    if (url === "/login") {
       next();
     } else {
-      let token = req.headers.tokenM;
+      let token = req.headers.token;
       let verify = _controller.validar_token(token);
       next();
     }
   } catch (error) {
-    res.status(401).send({
-      ok: false,
-      info: error,
-      mensaje: "No autenticado",
-    });
+    res.status(401).send({ ok: false, info: error, message: "No autenticado" });
   }
 });
 
 router.get("/verificar", (req, res) => {
   try {
     let token = req.headers.token;
-
-    let verificacion = _controlador.verificarToken(token);
+    let verificacion = _controller.validar_token(token);
     res.status(200).send({
       ok: true,
       info: verificacion,
@@ -35,11 +30,11 @@ router.get("/verificar", (req, res) => {
     res.status(401).send({
       ok: false,
       info: error,
-      mensaje: "No Autenticado.",
+      mensaje: "No Autenticado",
     });
   }
 });
-router.post("/verify", (req, res) => {
+router.post("/verificar", (req, res) => {
   try {
     let body = req.body;
     _controller.validar_datos(body);
@@ -50,14 +45,12 @@ router.post("/verify", (req, res) => {
           respuestaDB.rowCount > 0 ? respuestaDB.rows[0] : undefined;
         if (persona) {
           let token = _controlador.generarToken(persona);
-          res
-            .status(200)
-            .send({
-              ok: true,
-              info: token,
-              mensaje: "Persona autenticada.",
-              rol: persona.rol,
-            });
+          res.status(200).send({
+            ok: true,
+            info: token,
+            mensaje: "Persona autenticada.",
+            rol: persona.rol,
+          });
         } else {
           res.status(400).send({
             ok: false,

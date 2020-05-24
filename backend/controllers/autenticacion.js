@@ -2,7 +2,7 @@ const servicePg = require("../services/postgres");
 const jwt = require("jsonwebtoken");
 
 const SECRET_KEY =
-  "746f4325c687b8823db156b7c9e98dd665a1e3777f501997345b19d9bd99e118754928e78011b5b1bfd66482a17f87bab58bd0d4311f8a9141359a42ddfea07f";
+  "62dd9f018fdcfae7e7f1c8c7c8d253c7ddadbe85a3e20a57fc4003d9477fe093";
 
 let validar_datos = (usuario) => {
   if (!usuario) {
@@ -40,11 +40,9 @@ let generar_token = (usuario) => {
 let descifrar_token = (token) => {
   return jwt.decode(token, SECRET_KEY);
 };
-
 let validar_token = (token) => {
   return jwt.verify(token, SECRET_KEY);
 };
-
 module.exports = {
   validar_datos,
   consultar_usuario,

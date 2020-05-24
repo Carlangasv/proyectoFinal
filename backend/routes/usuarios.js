@@ -61,9 +61,9 @@ router.post("/usuarios", (req, res) => {
   }
 });
 
-router.delete("/usuarios/:id", (req, res) => {
+router.delete("/usuarios/:documento", (req, res) => {
   try {
-    let info_usuario = req.params.id;
+    let info_usuario = req.params.documento;
     eliminar_usuario(info_usuario)
       .then((answerDB) => {
         res.send({
