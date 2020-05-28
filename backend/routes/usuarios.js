@@ -13,7 +13,7 @@ const {
 router.get("/usuarios", (req, res) => {
   ver_usuarios()
     .then((answerDB) => {
-      let records = answerDB.rows;
+      let records = answerDB.rows
       res.send({
         ok: true,
         info: records,
@@ -79,15 +79,15 @@ router.delete("/usuarios/:documento", (req, res) => {
     res.send(error);
   }
 });
-router.put("/usuarios/:id", (req, res) => {
+router.put("/usuarios/:documento", (req, res) => {
   try {
     //Capturar el body desde la solicitud
-    let id = req.params.id;
+    let documento = req.params.documento;
     let info_usuario = req.body;
 
     // Actualiza el usuario en base de datos
 
-    actualizar_usuario(info_usuario, id)
+    actualizar_usuario(info_usuario, documento)
       .then((answerDB) => {
         res.send({ ok: true, mensaje: "Usuario editado", info: info_usuario });
       })

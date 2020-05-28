@@ -1,22 +1,13 @@
 import axios from "axios";
 
 export default {
-  beforeMount() {
-    //this.carga_pagina();
-  },
+  beforeMount() {},
   data() {
     return {
       url: "http://localhost:3001/api/v1/",
       message: "INICIAR SESIÓN",
-      mensaje2: "",
-      usuario: {
-        tipo_documento: "",
+      usuario: {  
         documento: "",
-        nombre: "",
-        apellidos: "",
-        celular: "",
-        correo: "",
-        rol: "",
         clave: ""
       }
     };
@@ -33,7 +24,6 @@ export default {
   methods: {
     login() {
       let url = this.url + "login";
-
       if (this.usuario.documento.length > 0 && this.usuario.clave.length > 0) {
         axios
           .post(url, this.usuario)
@@ -42,15 +32,22 @@ export default {
             console.log("Data:", data);
             localStorage.setItem("token", data.info);
             localStorage.setItem("documento", this.usuario.documento);
-            //this.$router.push("/home");
-            alert("Intento de entrar")
+            localStorage.setItem("rol", data.rol);
+            this.$router.push("/home");
           })
           .catch(error => {
+            alert("Documento o clave incorrecto");
             console.log(error);
           });
-      }else{
-        alert("Llene todos los campos")
+      } else {
+        alert("Llene todos los campos");
       }
+      let arreglo = [
+        {
+          nombre: "",
+          url: "/admin"
+        }
+      ];
     }
   }
 };
