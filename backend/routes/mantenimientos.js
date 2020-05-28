@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const {
-  ver_motos,
-  ver_moto,
-  eliminar_moto,
-  crear_moto,
-  actualizar_moto,
-  validar_moto,
-} = require("../controllers/motos");
+  actualizar_mantenimiento,
+  ver_mantenimientos,
+  ver_mantenimiento,
+  validar_mantenimiento,
+  eliminar_mantenimiento,
+  crear_mantenimiento,
+} = require("../controllers/mantenimientos");
 
-router.get("/motos", (req, res) => {
-  ver_motos()
+router.get("/mantenimientos", (req, res) => {
+  ver_mantenimientos()
     .then((answerDB) => {
       let records = answerDB.rows;
       res.send({
         ok: true,
         info: records,
-        mensaje: "Motos consultadas",
+        mensaje: "Mantenimientos consultados",
       });
     })
     .catch((error) => {
@@ -24,14 +24,14 @@ router.get("/motos", (req, res) => {
     });
 });
 
-router.get("/motos/:placa", (req, res) => {
-  let info_moto = req.params.placa;
-  ver_moto(info_moto)
+router.get("/mantenimientos/:placa", (req, res) => {
+  let info_mantenimiento = req.params.placa;
+  ver_mantenimiento(info_mantenimiento)
     .then((answerDB) => {
       res.send({
         ok: true,
         info: answerDB.rows,
-        mensaje: "Moto consultada",
+        mensaje: "mantenimiento consultada",
       });
     })
     .catch((error) => {
@@ -39,16 +39,16 @@ router.get("/motos/:placa", (req, res) => {
     });
 });
 
-router.post("/motos", (req, res) => {
+router.post("/mantenimientos", (req, res) => {
   try {
-    let info_moto = req.body;
-    validar_moto(info_moto);
-    crear_moto(info_moto)
+    let info_mantenimiento = req.body;
+    validar_mantenimiento(info_mantenimiento);
+    crear_mantenimiento(info_mantenimiento)
       .then((answerDB) => {
         res.send({
           ok: true,
           mensaje: "Usuario guardado",
-          info: info_moto,
+          info: info_mantenimiento,
         });
       })
       .catch((error) => {
@@ -59,14 +59,14 @@ router.post("/motos", (req, res) => {
   }
 });
 
-router.delete("/motos/:placa", (req, res) => {
+router.delete("/mantenimientos/:placa", (req, res) => {
   try {
-    let info_moto = req.params.placa;
-    eliminar_moto(info_moto)
+    let info_mantenimiento = req.params.placa;
+    eliminar_mantenimiento(info_mantenimiento)
       .then((answerDB) => {
         res.send({
           ok: true,
-          mensaje: "Moto eliminada",
+          mensaje: "mantenimiento eliminada",
         });
       })
       .catch((error) => {
@@ -77,17 +77,19 @@ router.delete("/motos/:placa", (req, res) => {
   }
 });
 
-router.put("/motos/:placa", (req, res) => {
+router.put("/mantenimientos/:placa", (req, res) => {
   try {
     //Capturar el body desde la solicitud
-    let placa = req.params.placa;
-    let info_moto = req.body;
+    let id = req.params.placa;
+    let info_mantemiento = req.body;
 
-    actualizar_moto(info_moto, placa)
+    // Actualiza el usuario en base de datos
+
+    actualizar_mantenimiento(info_mantenimiento, id)
       .then((answerDB) => {
         res.send({
           ok: true,
-          mensaje: "Moto editada",
+          mensaje: "mantenimiento editado",
           info: info_usuario,
         });
       })
@@ -100,5 +102,4 @@ router.put("/motos/:placa", (req, res) => {
     res.send(error);
   }
 });
-
 module.exports = router;

@@ -73,7 +73,7 @@ let actualizar_moto = async (moto, placa) => {
     moto.modelo,
     moto.color,
     moto.cilindraje,
-    moto.id_prop,
+    moto.id_propietario,
     moto.nro_soat,
     moto.vencimiento_soat,
     moto.nro_tecno,

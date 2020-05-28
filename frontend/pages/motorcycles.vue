@@ -179,8 +179,8 @@
               </b-form-group>
 
               <b-button type="submit" variant="danger" v-if="!enEdicion"
-                >Registrar moto
-              </b-button>
+                >Registrar moto </b-button
+              >
               <b-button @click="actualizarMotos()" variant="primary" v-else
                 >Actualizar moto</b-button
               >

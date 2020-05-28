@@ -12,11 +12,12 @@ const vs = "/api/v1/";
 const route_login = require("./routes/autenticacion");
 const route_users = require("./routes/usuarios"); 
 const route_motos = require("./routes/motos")
-
+const route_mantenimientos = require("./routes/mantenimientos")
 
 app.use(vs, route_login);
 app.use(vs,route_users);
 app.use(vs,route_motos)
+app.use(vs,route_mantenimientos)
 
 app.use("/", (req, res) => {
   res.status(404).send({

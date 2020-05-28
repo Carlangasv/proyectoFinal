@@ -87,12 +87,10 @@ export default {
       axios
         .get(`${this.url}motos/`, { headers: { token: this.token } })
         .then(response => {
-          console.log(response);
           this.lista_motos = response.data.info;
           for (let i in this.lista_motos) {
             this.lista_motos[i].acciones = true;
           }
-          console.log(this.lista_motos);
         })
         .catch(error => {
           console.log(error);
@@ -111,7 +109,6 @@ export default {
           })
           .then(response => {
             this.lista_motos.push(response.data.info);
-            console.log(response);
             this.moto = {
               placa: "",
               estado: "",
@@ -161,6 +158,7 @@ export default {
 
         .then(response => {
           var array = response.data.info;
+          console.log(array)
           this.enEdicion = true;
           this.moto.placa = array[0].placa;
           this.moto.estado = array[0].estado;
@@ -191,6 +189,7 @@ export default {
             headers: { token: this.token }
           })
           .then(response => {
+            console.log(response)
             let posicion = this.lista_motos.findIndex(
               motos => motos.placa == this.moto.placa
             );

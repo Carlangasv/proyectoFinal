@@ -9,34 +9,28 @@
           <b-card title="Crear mantenimientos">
             <b-card-text>A continuación inserte datos :</b-card-text>
 
-            <b-form action="javascript:void(0)" @submit="crearMantenimientos()">
+            <b-form action="javascript:void(0)" @submit="crearMantenimiento()">
               <br />
 
-              <b-form-group label="Id mecanico" label-for="id_mecanico">
-                <b-form-input
-                  class="form-control"
-                  type="number"
+              <b-form-group label="Mecanico" label-for="documento">
+                <b-form-select
+                  v-model="mantenimiento.id_mecanico"
+                  :options="lista_empleados"
                   required
-                  v-model="mantenimientos.id_mecanico"
-                  :disabled="enEdicion"
-                  placeholder="Ingrese id de mecanico"
-                  id="id_mecanico"
-                />
+                  id="documento"
+                ></b-form-select>
                 <b-form-invalid-feedback :state="validacionId_mecanico"
                   >Campo obligatorio</b-form-invalid-feedback
                 >
               </b-form-group>
 
               <b-form-group label="Placa" label-for="placa">
-                <b-form-input
-                  class="form-control"
-                  type="number"
+                <b-form-select
+                  v-model="mantenimiento.placa"
+                  :options="lista_motos"
                   required
-                  v-model="mantenimientos.placa"
-                  :disabled="enEdicion"
-                  placeholder="Ingrese placa"
                   id="placa"
-                />
+                ></b-form-select>
                 <b-form-invalid-feedback :state="validacionPlaca"
                   >Campo obligatorio</b-form-invalid-feedback
                 >
@@ -45,11 +39,10 @@
               <b-form-group label="Fecha" label-for="fecha">
                 <b-form-input
                   class="form-control"
-                  type="date"
-                  v-model="mantenimientos.fecha"
-                  id="fecha"
                   required
-                  placeholder="Ingrese fecha "
+                  v-model="mantenimiento.fecha"
+                  placeholder="dd-mm-aaaa"
+                  id="fecha"
                 />
                 <b-form-invalid-feedback :state="validacionFecha"
                   >Campo obligatorio</b-form-invalid-feedback
@@ -62,10 +55,9 @@
               >
                 <b-form-input
                   class="form-control"
-                  type="number"
+                  type="text"
                   required
-                  v-model="mantenimientos.trabajos_realizados"
-                  :disabled="enEdicion"
+                  v-model="mantenimiento.trabajos_realizados"
                   placeholder="Ingrese los trabajos realizados"
                   id="trabajos_realizados"
                 />
@@ -82,7 +74,7 @@
                   class="form-control"
                   type="number"
                   required
-                  v-model="mantenimientos.horas_invertidas"
+                  v-model="mantenimiento.horas_invertidas"
                   :disabled="enEdicion"
                   placeholder="Ingrese las horas invertidas"
                   id="horas_invertidas"
@@ -110,7 +102,7 @@
             striped
             responsive
             hover
-            :items="lista_usuario"
+            :items="lista_mantenimientos"
             v-show="showTable"
             class="border border-danger text-center"
           >
