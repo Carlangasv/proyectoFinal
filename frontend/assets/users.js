@@ -20,6 +20,7 @@ export default {
       },
       lista_usuarios: [{}],
       tipo_documento: [],
+      //Estas son las posibles opciones de documentos
       opciones_documentos: [
         {
           value: null,
@@ -31,8 +32,8 @@ export default {
         { value: "NIT", text: "03 - NIT" },
         { value: "Pasaporte", text: "04 - Pasaporte" }
       ],
-
       rol: [],
+      //estas son las posibles opciones de roles
       opciones_roles: [
         { value: null, text: "Seleccione el rol del usuario", disabled: true },
         { value: "01", text: "01 - Mécanico" },
@@ -44,6 +45,7 @@ export default {
   beforeMount() {
     this.mostrarUsuarios();
   },
+  //Aquí se validan todos los campos
   computed: {
     validacionId() {
       if (this.validacion_actualizar) return true;
@@ -79,7 +81,7 @@ export default {
         return true;
       }
     },
-
+    //Se traen todos los usuarios de la base de datos
     mostrarUsuarios() {
       this.token = localStorage.getItem("token");
       axios
@@ -97,7 +99,7 @@ export default {
           console.log(error);
         });
     },
-
+    //Se crea un usuario en la base de datos 
     crearUsuario() {
       if (this.validacion) {
         axios
@@ -126,6 +128,10 @@ export default {
         alert("LLene todos los campos correctamente");
       }
     },
+    /**
+     * Se elimina un usuario de la base de datos
+     * @param {item} item se trae toda la información del usuario a eliminar 
+     */
     eliminarUsuario({ item }) {
       axios
         .delete(this.url + "usuarios/" + item.documento, {
@@ -142,6 +148,10 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Se carga la información del usuario a actualizar
+     * @param {item} item trae toda la información del usuario a actualizar 
+     */
     cargarUsuario({ item }) {
       this.validacion_actualizar = true;
       axios
@@ -163,6 +173,9 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Se actualiza el usuario en la base de datos
+     */
     actualizarUsuario() {
       if (this.validacion) {
         axios

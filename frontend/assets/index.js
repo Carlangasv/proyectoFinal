@@ -12,6 +12,7 @@ export default {
       }
     };
   },
+  //Aquí se validan todos los campos
   computed: {
     validar_id() {
       return this.usuario.documento.length > 0;
@@ -22,6 +23,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * Metodo para logearse usando jwt
+     */
     login() {
       let url = this.url + "login";
       if (this.usuario.documento.length > 0 && this.usuario.clave.length > 0) {
@@ -30,9 +34,11 @@ export default {
           .then(response => {
             let data = response.data;
             console.log("Data:", data);
+            //Se guardan los valores de interes en el localStorage
             localStorage.setItem("token", data.info);
             localStorage.setItem("documento", this.usuario.documento);
             localStorage.setItem("rol", data.rol);
+            //Se va a ruta de /home
             this.$router.push("/home");
           })
           .catch(error => {
@@ -42,12 +48,6 @@ export default {
       } else {
         alert("Llene todos los campos");
       }
-      let arreglo = [
-        {
-          nombre: "",
-          url: "/admin"
-        }
-      ];
     }
   }
 };

@@ -28,6 +28,7 @@ export default {
   mounted() {
     this.llenarListas();
   },
+  //Aquí se validan todos los campos
   computed: {
     validacionId_mecanico() {
       if (this.validacion_actualizar) return true;
@@ -62,12 +63,17 @@ export default {
         return true;
       }
     },
+    /**
+     * Se van a llenar las listas con los mecanicos y las motos que hay en el taller
+     */
     llenarListas() {
       this.token = localStorage.getItem("token");
+      //Usando el get de usuarios para obtener los mecanicos
       axios
         .get(this.url + "usuarios", { headers: { token: this.token } })
         .then(response => {
           let array = response.data.info;
+          //Filtramos por metodo del rol para asegurar que sea mecanico
           for (let i in array) {
             if (array[i].rol == 1) {
               let valor = array[i].documento;
@@ -77,7 +83,7 @@ export default {
             }
           }
         });
-
+      //Usamos el get de motos para obtener las placas de las motos que hay en el taller
       axios
         .get(this.url + "motos", { headers: { token: this.token } })
         .then(response => {
@@ -90,12 +96,16 @@ export default {
           }
         });
     },
+    /**
+     * Se cargan todos los mantenimientos que hay en la base de datos
+     */
     cargarMantenimientos() {
       this.token = localStorage.getItem("token");
       axios
         .get(`${this.url}mantenimientos`, { headers: { token: this.token } })
         .then(response => {
           this.lista_mantenimientos = response.data.info;
+          //Las acciones son las que se usan para mostrar los botones de modificar y eliminar
           for (let i in this.lista_mantenimientos) {
             this.lista_mantenimientos[i].acciones = true;
           }
@@ -104,6 +114,9 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Metodo para insertar mantenimientos por medio del api
+     */
     crearMantenimiento() {
       if (this.validacion) {
         axios
@@ -130,6 +143,10 @@ export default {
         alert("Llene todos los campos correctamente");
       }
     },
+    /**
+     * Metodo para eliminar por medio del api
+     * @param {item} item este parametro trae toda la fila que contiene un mantenimiento a eliminar
+     */
     eliminarMantenimiento({ item }) {
       axios
         .delete(
@@ -150,6 +167,10 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Metodo que trae un mantenimiento especifico y ponerlo en el formulario para poder ser actualizado
+     * @param {item} item este parametro trae toda la fila que contiene un mantenimiento a actualizar
+     */
     cargarMantenimiento({ item }) {
       this.validacion_actualizar = true;
       axios
@@ -173,8 +194,12 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Metodo para actualizar un mantenimiento por medio del api
+     */
     actualizarMantenimientos() {
       if (this.validacion) {
+        //Aqui se usa la placa, el id_mecanico y la fecha ya que esto conforma la pk de mantenimiento
         axios
           .put(
             `${this.url}mantenimientos/${this.mantenimiento.placa}/${this.mantenimiento.id_mecanico}/${this.mantenimiento.fecha}`,

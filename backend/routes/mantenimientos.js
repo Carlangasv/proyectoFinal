@@ -49,7 +49,7 @@ router.post("/mantenimientos", (req, res) => {
       .then((answerDB) => {
         res.send({
           ok: true,
-          mensaje: "Usuario guardado",
+          mensaje: "Mantenimiento guardado",
           info: info_mantenimiento,
         });
       })
@@ -70,7 +70,7 @@ router.delete("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
       .then((answerDB) => {
         res.send({
           ok: true,
-          mensaje: "mantenimiento eliminada",
+          mensaje: "Mantenimiento eliminada",
         });
       })
       .catch((error) => {
@@ -92,7 +92,7 @@ router.put("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
       .then((answerDB) => {
         res.send({
           ok: true,
-          mensaje: "mantenimiento editado",
+          mensaje: "Mantenimiento editado",
           info: info_usuario,
         });
       })

@@ -9,8 +9,12 @@ export default {
     this.mostrarOpciones();
   },
   methods: {
+    /**
+     * Se muestran las opciones que tiene el usuario dependiendo de su rol
+     */
     mostrarOpciones() {
       let rol = localStorage.getItem("rol");
+      //Si el usuario es un administrador
       if (rol == 2) {
         this.arregloPermisos = [
           {
@@ -30,6 +34,7 @@ export default {
             url: "http://localhost:3000/"
           }
         ];
+        //Si el usuario es un mecanico 
       } else {
         this.arregloPermisos = [
           {

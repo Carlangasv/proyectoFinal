@@ -30,6 +30,7 @@ export default {
   beforeMount() {
     this.cargarMotos();
   },
+  //Aquí se validan todos los campos
   computed: {
     validacionPlaca() {
       if (this.validacion_actualizar) return true;
@@ -81,7 +82,7 @@ export default {
         return true;
       }
     },
-
+    //Se traen todas las motos de la base de datos
     cargarMotos() {
       this.token = localStorage.getItem("token");
       axios
@@ -96,6 +97,7 @@ export default {
           console.log(error);
         });
     },
+    //Se inserta la moto en la base de datos
     crearMotos() {
       if (
         this.validacion &&
@@ -133,6 +135,10 @@ export default {
         alert("Llene todos los campos correctamente");
       }
     },
+    /**
+     * Se elimina una moto de la base de datos
+     * @param {item} item trae toda la información de la moto a eliminar 
+     */
     eliminarMotos({ item }) {
       axios
         .delete(`${this.url}motos/${item.placa}`, {
@@ -149,6 +155,10 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Se llenan los campos del formulario con los datos de la moto a actualizar
+     * @param {item} item toda la información de la moto a modificar 
+     */
     cargarMoto({ item }) {
       this.validacion_actualizar = true;
       axios
@@ -177,6 +187,9 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * Metodo encargado de la actualización de la moto
+     */
     actualizarMotos() {
       if (
         this.validacion &&
