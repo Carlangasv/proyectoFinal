@@ -3,6 +3,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      validacion_actualizar: false,
       token: "",
       url: "http://localhost:3001/api/v1/",
       message: "crud mantenimientos",
@@ -29,12 +30,15 @@ export default {
   },
   computed: {
     validacionId_mecanico() {
+      if (this.validacion_actualizar) return true;
       return this.validar_condicion(this.mantenimiento.id_mecanico.length > 0);
     },
     validacionPlaca() {
+      if (this.validacion_actualizar) return true;
       return this.validar_condicion(this.mantenimiento.placa.length > 0);
     },
     validacionFecha() {
+      if (this.validacion_actualizar) return true;
       return this.validar_condicion(this.mantenimiento.fecha.length > 0);
     },
     validacionTrabajos_realizados() {
@@ -127,8 +131,6 @@ export default {
       }
     },
     eliminarMantenimiento({ item }) {
-      console.log(item);
-
       axios
         .delete(
           `${this.url}mantenimientos/${item.placa}/${item.id_mecanico}/${item.fecha}`,
@@ -147,6 +149,66 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    cargarMantenimiento({ item }) {
+      this.validacion_actualizar = true;
+      axios
+        .get(
+          `${this.url}mantenimientos/${item.id_mecanico}/${item.placa}/${item.fecha}`,
+          {
+            headers: { token: this.token }
+          }
+        )
+        .then(response => {
+          console.log(response);
+          var datos = response.data.info;
+          this.enEdicion = true;
+          this.mantenimiento.id_mecanico = datos[0].id_mecanico;
+          this.mantenimiento.placa = datos[0].placa;
+          this.mantenimiento.fecha = datos[0].fecha;
+          this.mantenimiento.trabajos_realizados = datos[0].trabajos_realizados;
+          this.mantenimiento.horas_invertidas = datos[0].horas_invertidas;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    actualizarMantenimientos() {
+      if (this.validacion) {
+        axios
+          .put(
+            `${this.url}mantenimientos/${this.mantenimiento.placa}/${this.mantenimiento.id_mecanico}/${this.mantenimiento.fecha}`,
+            this.mantenimiento,
+            {
+              headers: { token: this.token }
+            }
+          )
+          .then(response => {
+            console.log(response);
+            let position = this.lista_mantenimientos.findIndex(
+              mantenimiento =>
+                mantenimiento.placa == this.mantenimiento.placa &&
+                mantenimiento.id_mecanico == this.mantenimiento.id_mecanico &&
+                mantenimiento.fecha == this.mantenimiento.fecha
+            );
+            this.lista_mantenimientos.splice(position, 1, this.mantenimiento);
+            this.enEdicion = false;
+            this.mantenimiento = {
+              id_mecanico: "",
+              placa: "",
+              fecha: "",
+              trabajos_realizados: "",
+              horas_invertidas: ""
+            };
+            this.validacion_actualizar = false;
+            alert("Mantenimiento actualizado");
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        alert("LLene todos los campos correctamente");
+      }
     }
   }
 };

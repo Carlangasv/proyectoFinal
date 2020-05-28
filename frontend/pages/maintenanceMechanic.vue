@@ -7,7 +7,7 @@
         <b-col>
           <br />
           <b-card title="Crear mantenimientos">
-            <b-card-text>A continuación inserte datos :</b-card-text>
+            <b-card-text> A continuación inserte datos :</b-card-text>
 
             <b-form action="javascript:void(0)" @submit="crearMantenimiento()">
               <br />
@@ -16,7 +16,7 @@
                 <b-form-select
                   v-model="mantenimiento.id_mecanico"
                   :options="lista_empleados"
-                  :disabled="enEdicion"
+                  disabled
                   required
                   id="documento"
                 ></b-form-select>
@@ -29,7 +29,7 @@
                 <b-form-select
                   v-model="mantenimiento.placa"
                   :options="lista_motos"
-                  :disabled="enEdicion"
+                  disabled
                   required
                   id="placa"
                 ></b-form-select>
@@ -43,7 +43,7 @@
                   class="form-control"
                   required
                   v-model="mantenimiento.fecha"
-                  :disabled="enEdicion"
+                  disabled
                   placeholder="dd-mm-aaaa"
                   id="fecha"
                 />
@@ -60,6 +60,7 @@
                   class="form-control"
                   type="text"
                   required
+                  :disabled="!enEdicion"
                   v-model="mantenimiento.trabajos_realizados"
                   placeholder="Ingrese los trabajos realizados"
                   id="trabajos_realizados"
@@ -77,6 +78,7 @@
                   class="form-control"
                   type="number"
                   required
+                  :disabled="!enEdicion"
                   v-model="mantenimiento.horas_invertidas"
                   placeholder="Ingrese las horas invertidas"
                   id="horas_invertidas"
@@ -86,13 +88,7 @@
                 >
               </b-form-group>
 
-              <b-button type="submit" variant="danger" v-if="!enEdicion"
-                >Crear mantenimiento</b-button
-              >
-              <b-button
-                @click="actualizarMantenimientos()"
-                variant="primary"
-                v-else
+              <b-button @click="actualizarMantenimientos()" variant="primary"
                 >Actualizar mantenimiento</b-button
               >
             </b-form>
@@ -119,14 +115,6 @@
               </b-button>
               <br />
               <br />
-              <b-button
-                size="sm"
-                @click="eliminarMantenimiento(row)"
-                class="mr-2"
-                variant="outline-danger"
-              >
-                <b-img left width="15" height="15"></b-img>Eliminar
-              </b-button>
             </template>
           </b-table>
         </b-col>

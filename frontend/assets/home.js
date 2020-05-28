@@ -34,7 +34,7 @@ export default {
         this.arregloPermisos = [
           {
             nombre: "Ver mis mantenimientos",
-            url: ""
+            url: "/maintenanceMechanic"
           },
           {
             nombre: "Gestionar Moto",

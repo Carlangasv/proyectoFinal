@@ -32,11 +32,11 @@ let ver_mantenimientos = async () => {
   return respuesta;
 };
 
-let ver_mantenimiento = async (id_mecanico) => {
+let ver_mantenimiento = async (id_mecanico,placa, fecha) => {
   let _service = new ServicePG();
   let sql = `SELECT id_mecanico, placa, fecha, trabajos_realizados, horas_invertidas
-    FROM public.mantenimientos where id_mecanico = $1`;
-  let values = [id_mecanico];
+    FROM public.mantenimientos where id_mecanico = $1 and placa = $2 and fecha = $3`;
+  let values = [id_mecanico,placa,fecha];
   let respuesta = await _service.runsql(sql, values);
   return respuesta;
 };
@@ -77,9 +77,9 @@ let actualizar_mantenimiento = async (
 	SET trabajos_realizados=$1, horas_invertidas=$2
     WHERE id_mecanico=$3 and placa = $4 and fecha =$5`;
   let values = [
-    mantenimiento.trabajos,
-    mantenimiento.horas,
-    id_mecanicom,
+    mantenimiento.trabajos_realizados,
+    mantenimiento.horas_invertidas,
+    id_mecanico,
     placa,
     fecha,
   ];

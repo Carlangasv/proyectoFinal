@@ -24,9 +24,11 @@ router.get("/mantenimientos", (req, res) => {
     });
 });
 
-router.get("/mantenimientos/:placa", (req, res) => {
-  let info_mantenimiento = req.params.placa;
-  ver_mantenimiento(info_mantenimiento)
+router.get("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
+  let placa = req.params.placa;
+  let id_mecanico = req.params.id_mecanico;
+  let fecha = req.params.fecha
+  ver_mantenimiento(placa,id_mecanico,fecha)
     .then((answerDB) => {
       res.send({
         ok: true,
@@ -79,15 +81,14 @@ router.delete("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
   }
 });
 
-router.put("/mantenimientos/:placa", (req, res) => {
+router.put("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
   try {
     //Capturar el body desde la solicitud
-    let id = req.params.placa;
-    let info_mantemiento = req.body;
-
-    // Actualiza el usuario en base de datos
-
-    actualizar_mantenimiento(info_mantenimiento, id)
+    let placa = req.params.placa;
+    let id_mecanico = req.params.id_mecanico;
+    let fecha = req.params.fecha;
+    let info_mantenimiento = req.body;
+    actualizar_mantenimiento(info_mantenimiento,id_mecanico,placa,fecha)
       .then((answerDB) => {
         res.send({
           ok: true,
