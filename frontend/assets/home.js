@@ -18,12 +18,12 @@ export default {
             url: "/users"
           },
           {
-            nombre: "Ingresar Moto",
-            url: ""
+            nombre: "Gestionar Motos",
+            url: "/motorcycles"
           },
           {
             nombre: "Asignar Moto",
-            url: ""
+            url: "/maintenancesAdmin"
           },
           {
             nombre: "Salir",
@@ -37,8 +37,8 @@ export default {
             url: ""
           },
           {
-            nombre: "Ingresar Moto",
-            url: ""
+            nombre: "Gestionar Moto",
+            url: "/motorcycles"
           },
           {
             nombre: "Salir",

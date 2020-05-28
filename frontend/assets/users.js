@@ -175,7 +175,7 @@ export default {
               usuario => usuario.documento == this.usuario.documento
             );
             this.lista_usuarios.splice(position, 1, this.usuario);
-            this.inEdition = false;
+            this.enEdicion= false;
             this.usuario = {
               documento: "",
               nombre: "",

@@ -24,13 +24,13 @@ router.get("/motos", (req, res) => {
     });
 });
 
-router.get("/motos/:id", (req, res) => {
-  let info_moto = req.params.id;
+router.get("/motos/:placa", (req, res) => {
+  let info_moto = req.params.placa;
   ver_moto(info_moto)
     .then((answerDB) => {
       res.send({
         ok: true,
-        info: answerDB,
+        info: answerDB.rows,
         mensaje: "Moto consultada",
       });
     })
@@ -59,9 +59,9 @@ router.post("/motos", (req, res) => {
   }
 });
 
-router.delete("/motos/:id", (req, res) => {
+router.delete("/motos/:placa", (req, res) => {
   try {
-    let info_moto = req.params.id;
+    let info_moto = req.params.placa;
     eliminar_moto(info_moto)
       .then((answerDB) => {
         res.send({
@@ -77,10 +77,10 @@ router.delete("/motos/:id", (req, res) => {
   }
 });
 
-router.put("/motos/:id", (req, res) => {
+router.put("/motos/:placa", (req, res) => {
   try {
     //Capturar el body desde la solicitud
-    let id = req.params.id;
+    let id = req.params.placa;
     let info_moto = req.body;
 
     // Actualiza el usuario en base de datos

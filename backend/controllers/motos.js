@@ -28,7 +28,7 @@ let crear_moto = async (moto) => {
     moto.modelo,
     moto.color,
     moto.cilindraje,
-    moto.id_prop,
+    moto.id_propietario,
     moto.nro_soat,
     moto.vencimiento_soat,
     moto.nro_tecno,
@@ -40,7 +40,7 @@ let crear_moto = async (moto) => {
 
 let eliminar_moto = (placa) => {
   let _service = new ServicePg();
-  let sql = `DELETE FROM public.motos where placa = '${placa}`;
+  let sql = `DELETE FROM public.motos where placa = '${placa}'`;
   let respuesta = _service.runsql(sql);
   return respuesta;
 };
@@ -48,7 +48,7 @@ let eliminar_moto = (placa) => {
 let ver_moto = async (placa) => {
   let _service = new ServicePg();
   let sql = `SELECT placa, estado, clase, marca, modelo, color, cilindraje, id_propietario, nro_soat, vencimiento_soat, nro_tecnomecanica, vencimiento_tecnomecanica
-    FROM public.motos where placa = '${placa}`;
+    FROM public.motos where placa = '${placa}'`;
   let respuesta = await _service.runsql(sql);
   return respuesta;
 };
