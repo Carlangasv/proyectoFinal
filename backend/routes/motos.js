@@ -73,7 +73,7 @@ router.delete("/motos/:placa", (req, res) => {
         res.send(error);
       });
   } catch (error) {
-    res.send(error);
+    console.log(error);
   }
 });
 

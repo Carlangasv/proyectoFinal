@@ -59,10 +59,12 @@ router.post("/mantenimientos", (req, res) => {
   }
 });
 
-router.delete("/mantenimientos/:placa", (req, res) => {
+router.delete("/mantenimientos/:placa/:id_mecanico/:fecha", (req, res) => {
   try {
-    let info_mantenimiento = req.params.placa;
-    eliminar_mantenimiento(info_mantenimiento)
+    let placa = req.params.placa;
+    let id_mecanico = req.params.id_mecanico;
+    let fecha = req.params.fecha;
+    eliminar_mantenimiento(id_mecanico,placa,fecha)
       .then((answerDB) => {
         res.send({
           ok: true,

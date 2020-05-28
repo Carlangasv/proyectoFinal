@@ -57,11 +57,11 @@ let crear_mantenimiento = async (mantenimiento) => {
   return respuesta;
 };
 
-let eliminar_mantenimiento = (placa, id_mecanico) => {
+let eliminar_mantenimiento = (id_mecanico,placa,fecha) => {
   let _service = new ServicePG();
   let sql = `DELETE FROM public.mantenimientos
-    WHERE id_mecanico = $1 and placa = $2`;
-  let values = [id_mecanico, placa];
+    WHERE id_mecanico = $1 and placa = $2 and fecha = $3` ;
+  let values = [id_mecanico, placa, fecha];
   let respuesta = _service.runsql(sql, values);
   return respuesta;
 };

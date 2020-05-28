@@ -23,7 +23,8 @@ export default {
   },
   beforeMount() {
     this.cargarMantenimientos();
-  },mounted(){
+  },
+  mounted() {
     this.llenarListas();
   },
   computed: {
@@ -88,13 +89,12 @@ export default {
     cargarMantenimientos() {
       this.token = localStorage.getItem("token");
       axios
-        .get(`${this.url}mantenimientos`, {headers: { token: this.token } })
+        .get(`${this.url}mantenimientos`, { headers: { token: this.token } })
         .then(response => {
           this.lista_mantenimientos = response.data.info;
           for (let i in this.lista_mantenimientos) {
             this.lista_mantenimientos[i].acciones = true;
           }
-          
         })
         .catch(error => {
           console.log(error);
@@ -103,9 +103,11 @@ export default {
     crearMantenimiento() {
       if (this.validacion) {
         axios
-          .post(this.url + "mantenimientos",this.mantenimiento, {headers:{token:this.token} })
+          .post(this.url + "mantenimientos", this.mantenimiento, {
+            headers: { token: this.token }
+          })
           .then(response => {
-            console.log(response)
+            console.log(response);
             this.lista_mantenimientos.push(response.data.info);
             this.mantenimiento = {
               id_mecanico: "",
@@ -123,6 +125,28 @@ export default {
       } else {
         alert("Llene todos los campos correctamente");
       }
+    },
+    eliminarMantenimiento({ item }) {
+      console.log(item);
+
+      axios
+        .delete(
+          `${this.url}mantenimientos/${item.placa}/${item.id_mecanico}/${item.fecha}`,
+          { headers: { token: this.token } }
+        )
+        .then(response => {
+          let posicion = this.lista_mantenimientos.findIndex(
+            lista_mantenimientos =>
+              lista_mantenimientos.placa == item.placa &&
+              lista_mantenimientos.id_mecanico == item.id_mecanico &&
+              lista_mantenimientos.fecha == item.fecha
+          );
+          this.lista_mantenimientos.splice(posicion, 1);
+          alert("Usuario Eliminado");
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

@@ -119,7 +119,7 @@
               <br />
               <b-button
                 size="sm"
-                @click="eliminarMantenimientos(row)"
+                @click="eliminarMantenimiento(row)"
                 class="mr-2"
                 variant="outline-danger"
               >
